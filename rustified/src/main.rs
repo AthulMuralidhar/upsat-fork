@@ -88,6 +88,14 @@ struct RccClkInitTypeDef {
     apb1_clk_divider: RccHClk,
     apb2_clk_divider: RccHClk,
 }
+enum RccPeriphClkSelection {
+    RccPeriphC
+}
+
+struct RccPeriphClkInitTypeDef {
+    periph_clock_selection: u32,
+    rtc_clock_selection: RccClkInitTypeDef,
+}
 fn system_clock_config() {
     println!("entering system clock config");
     let _rcc_osc_init_struct = RccOscInitTypeDef {
@@ -112,5 +120,18 @@ fn system_clock_config() {
         apb2_clk_divider:RccHClk::Div2
     };
 
+    // let _periph_clk_init_struct = RccClkInitTypeDef {
+    //     clock_type: RccClockType::HClk,
+    //     sys_clk_source:RccSysClkSource::PllClk,
+    //     ahb_clk_divider: RccSysClk::Div1,
+    //     apb1_clk_divider:RccHClk::Div4,
+    //     apb2_clk_divider:RccHClk::Div2
+    // };
+
+
+
+
     println!("exciting system clock config");
 }
+
+
