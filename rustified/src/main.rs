@@ -1,103 +1,22 @@
 #![allow(dead_code)]
+mod rcc_clk_init;
+mod rcc_osc_init;
+mod rcc_periph_clk_init;
 
-fn main() {
-    system_clock_config()
-}
+use rcc_clk_init::*;
+use rcc_osc_init::*;
+use rcc_periph_clk_init::*;
 
-enum RccOscillatortype {
-    None,
-    Hse,
-    Hsi,
-    Lse,
-    Lsi,
-}
-enum RccHse {
-    Off,
-    On,
-    Bypass
-}
-enum RccLse {
-    Off,
-    On,
-    Bypass
-}
-enum RccLsi {
-    Off,
-    On
-}
-enum RccPll {
-    Off,
-    On,
-    None
-}
-struct RccPllinitTypeDef {
-    //    This parameter must be a number between Min_Data = 2 and Max_Data = 7
-    pll_state: RccPll,
-    pll_source: String, // TODO: impliment the actual type
-    pllm: i32,
-    plln: i32,
-    pllp: String, // TODO: impliment the actual type
-    pllq: i32,
-}
-struct RccOscInitTypeDef {
-    oscillator_type: RccOscillatortype,
-    hse_state: RccHse,
-    lse_state: RccLse,
-//    HSIState: u32,
-//    HSICalibrationValue: u32,
-    lsi_state: RccLsi,
-    pll: RccPllinitTypeDef
-}
-
-enum RccClockType {
-    SysClk,
-    HClk,
-PClk1,
-PClk2,
-}
-enum RccSysClkSource {
-   Hsi,
-    Hse,
-    PllClk,
-    PllRClk,
-}
-
-enum RccSysClk {
-    Div1,
-    Div2,
-    Div4,
-    Div8,
-    Div16,
-    Div64,
-    Div128,
-    Div256,
-Div512,
-}
-enum RccHClk {
-    Div1,
-    Div2,
-    Div4,
-    Div8,
-    Div16,
-}
-
-struct RccClkInitTypeDef {
-    clock_type:RccClockType,
-    sys_clk_source:RccSysClkSource,
-    ahb_clk_divider: RccSysClk,
-    apb1_clk_divider: RccHClk,
-    apb2_clk_divider: RccHClk,
-}
-enum RccPeriphClkSelection {
-    RccPeriphC
-}
-
-struct RccPeriphClkInitTypeDef {
-    periph_clock_selection: u32,
-    rtc_clock_selection: RccClkInitTypeDef,
-}
 fn system_clock_config() {
     println!("entering system clock config");
+    let _rcc_clk_init_struct = RccClkInitTypeDef {
+        clock_type: RccClockType::HClk,
+        sys_clk_source:RccSysClkSource::PllClk,
+        ahb_clk_divider: RccSysClk::Div1,
+        apb1_clk_divider:RccHClk::Div4,
+        apb2_clk_divider:RccHClk::Div2
+    };
+
     let _rcc_osc_init_struct = RccOscInitTypeDef {
         oscillator_type: RccOscillatortype::Lsi,
         hse_state: RccHse::On,
@@ -112,26 +31,21 @@ fn system_clock_config() {
             pllq: 7
         }
     };
-    let _rcc_clk_init_struct = RccClkInitTypeDef {
-        clock_type: RccClockType::HClk,
-        sys_clk_source:RccSysClkSource::PllClk,
-        ahb_clk_divider: RccSysClk::Div1,
-        apb1_clk_divider:RccHClk::Div4,
-        apb2_clk_divider:RccHClk::Div2
+
+
+    let _periph_clk_init_struct = RccPeriphClkInitTypeDef {
+        periph_clock_selection: RccPeriphClkSelection::RccPeriphClkRtc,
+        rtc_clock_selection: RccRtcClkSource::RccRtcClkSourceLse,
     };
-
-    // let _periph_clk_init_struct = RccClkInitTypeDef {
-    //     clock_type: RccClockType::HClk,
-    //     sys_clk_source:RccSysClkSource::PllClk,
-    //     ahb_clk_divider: RccSysClk::Div1,
-    //     apb1_clk_divider:RccHClk::Div4,
-    //     apb2_clk_divider:RccHClk::Div2
-    // };
-
-
 
 
     println!("exciting system clock config");
 }
 
+
+
+
+fn main() {
+    system_clock_config()
+}
 
