@@ -43,7 +43,21 @@ fn system_clock_config() {
 }
 
 
+// #define __HAL_RCC_PWR_CLK_ENABLE()     do { \
+//     __IO uint32_t tmpreg = 0x00U; \
+//     SET_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);\
+//     /* Delay after an RCC peripheral clock enabling */ \
+//     tmpreg = READ_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);\
+//     UNUSED(tmpreg); \
+//       } while(0)
 
+
+fn __hal_rcc_pwr_clk_enabled() {
+    
+}
+
+
+// CHECK: https://locka99.gitbooks.io/a-guide-to-porting-c-to-rust/content/features_of_rust/macros.html
 
 fn main() {
     system_clock_config()
