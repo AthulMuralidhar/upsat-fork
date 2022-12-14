@@ -6,6 +6,7 @@ mod rcc_periph_clk_init;
 use rcc_clk_init::*;
 use rcc_osc_init::*;
 use rcc_periph_clk_init::*;
+use volatile::Volatile;
 
 fn system_clock_config() {
     println!("entering system clock config");
@@ -51,9 +52,8 @@ fn system_clock_config() {
 //     UNUSED(tmpreg); \
 //       } while(0)
 
-
 fn __hal_rcc_pwr_clk_enabled() {
-    
+    let tmpreg: Volatile<u32> = Volatile::new(0x00);
 }
 
 
