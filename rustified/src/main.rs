@@ -42,7 +42,7 @@ fn system_clock_config() {
     println!("exciting system clock config");
 }
 
-
+// TODO: fix this macro
 // #define __HAL_RCC_PWR_CLK_ENABLE()     do { \
 //     __IO uint32_t tmpreg = 0x00U; \
 //     SET_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);\
