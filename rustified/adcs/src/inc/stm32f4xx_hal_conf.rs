@@ -1,0 +1,1 @@
+pub const INSTRUCTION_CACHE_ENABLE: u32 = 1;

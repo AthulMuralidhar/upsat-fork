@@ -1,68 +1,43 @@
-// /**
-//  * @brief  RCC Internal/External Oscillator (HSE, HSI, LSE and LSI) configuration structure definition
-//  */
-// typedef struct
-// {
-//     uint32_t OscillatorType;       /*!< The oscillators to be configured.
-//                                       This parameter can be a value of @ref RCC_Oscillator_Type                   */
-//
-//     uint32_t HSEState;             /*!< The new state of the HSE.
-//                                       This parameter can be a value of @ref RCC_HSE_Config                        */
-//
-//     uint32_t LSEState;             /*!< The new state of the LSE.
-//                                       This parameter can be a value of @ref RCC_LSE_Config                        */
-//
-//     uint32_t HSIState;             /*!< The new state of the HSI.
-//                                       This parameter can be a value of @ref RCC_HSI_Config                        */
-//
-//     uint32_t HSICalibrationValue;  /*!< The HSI calibration trimming value (default is RCC_HSICALIBRATION_DEFAULT).
-//                                        This parameter must be a number between Min_Data = 0x00 and Max_Data = 0x1F */
-//
-//     uint32_t LSIState;             /*!< The new state of the LSI.
-//                                       This parameter can be a value of @ref RCC_LSI_Config                        */
-//
-//     RCC_PLLInitTypeDef PLL;        /*!< PLL structure parameters                                                    */
-// }RCC_OscInitTypeDef;
-
-
-use std::u32;
 pub enum RccOscillatorType {
-    None,
-    Hse,
-    Hsi,
-    Lse,
-    Lsi,
+    None = 0x00000000,
+    Hse= 0x00000001,
+    Hsi = 0x00000002,
+    Lse = 0x00000004,
+    Lsi = 0x00000008,
 }
 
+// TODO: add all the proper contants for the enums
 pub enum RccHscConfig {
     Off,
     On,
     Bypass
 }
-
+// TODO: add all the proper contants for the enums
 pub enum RccLseConfig {
     Off,
     On,
     Bypass
 }
-
+// TODO: add all the proper contants for the enums
 pub enum HsiConfig {
     On,
     Off
 }
+// TODO: add all the proper contants for the enums
 pub enum RccClockType {
     SysClk,
     HClk,
     PClk1,
     PClk2,
 }
+// TODO: add all the proper contants for the enums
 pub enum RccSysClkSource {
     Hsi,
     Hse,
     PllClk,
     PllRClk,
 }
-
+// TODO: add all the proper contants for the enums
 pub enum RccSysClk {
     Div1,
     Div2,
@@ -74,6 +49,7 @@ pub enum RccSysClk {
     Div256,
     Div512,
 }
+// TODO: add all the proper contants for the enums
 pub enum RccHClk {
     Div1,
     Div2,
@@ -91,20 +67,24 @@ pub struct RccClkInitTypeDef {
 }
 const RCC_HSI_CALIBRATION_DEFAULT: u32 = 16;
 
+// TODO: add all the proper contants for the enums
 pub enum RccHse {
     Off,
     On,
     Bypass,
 }
+// TODO: add all the proper contants for the enums
 pub enum RccLse {
     Off,
     On,
     Bypass,
 }
+// TODO: add all the proper contants for the enums
 pub enum RccLsi {
     Off,
     On,
 }
+// TODO: add all the proper contants for the enums
 pub enum RccPll {
     Off,
     On,
@@ -131,7 +111,7 @@ pub struct RccOscInitTypeDef {
     pub pll: RccPllinitTypeDef,
 }
 
-
+// TODO: add all the proper contants for the enums
 pub enum RccPeriphClkSelection {
     RccPeriphClk12SApb1,
     RccPeriphClk12SApb2,
@@ -146,6 +126,7 @@ pub enum RccPeriphClkSelection {
 }
 
 // more info about HAL architecture is here: https://en.wikipedia.org/wiki/Hardware_abstraction#In_operating_systems
+// TODO: add all the proper contants for the enums
 pub enum RccRtcClkSource {
     RccRtcClkSourceLse,
     RccRtcClkSourceLsi,
@@ -185,3 +166,4 @@ pub struct RccPeriphClkInitTypeDef {
     pub periph_clock_selection: RccPeriphClkSelection,
     pub rtc_clock_selection: RccRtcClkSource,
 }
+

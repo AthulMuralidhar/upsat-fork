@@ -1,13 +1,14 @@
 #![allow(dead_code)]
-
 mod inc;
+mod stm32f4xx_hal;
 
 use volatile::Volatile;
 use tracing::{info,  Level};
 use tracing_subscriber::FmtSubscriber;
+use crate::inc::stm32f4xx_hal_rcc::*;
+use crate::stm32f4xx_hal::hal_init;
 
 
-// TODO: FIGURE HOW TF RUST  CAN HAVE A FUCKING GODAM LIB and import th e types form that fucking palce u mother fock
 fn system_clock_config() {
     info!("entering system clock config");
     let _rcc_clk_init_struct = RccClkInitTypeDef {
@@ -17,27 +18,27 @@ fn system_clock_config() {
         apb1_clk_divider:RccHClk::Div4,
         apb2_clk_divider:RccHClk::Div2
     };
-    //
-    // let _rcc_osc_init_struct = RccOscInitTypeDef {
-    //     oscillator_type: RccOscillatortype::Lsi,
-    //     hse_state: RccHse::On,
-    //     lse_state: RccLse::On,
-    //     lsi_state: RccLsi::On,
-    //     pll : RccPllinitTypeDef {
-    //         pll_state: RccPll::On,
-    //         pll_source: String::from("TODO"),
-    //         pllm: 6,
-    //         plln: 168,
-    //         pllp: String::from("TODO"),
-    //         pllq: 7
-    //     }
-    // };
-    //
-    //
-    // let _periph_clk_init_struct = RccPeriphClkInitTypeDef {
-    //     periph_clock_selection: RccPeriphClkSelection::RccPeriphClkRtc,
-    //     rtc_clock_selection: RccRtcClkSource::RccRtcClkSourceLse,
-    // };
+
+    let _rcc_osc_init_struct = RccOscInitTypeDef {
+        oscillator_type: RccOscillatorType::Lsi,
+        hse_state: RccHse::On,
+        lse_state: RccLse::On,
+        lsi_state: RccLsi::On,
+        pll : RccPllinitTypeDef {
+            pll_state: RccPll::On,
+            pll_source: String::from("TODO"),
+            pllm: 6,
+            plln: 168,
+            pllp: String::from("TODO"),
+            pllq: 7
+        }
+    };
+
+
+    let _periph_clk_init_struct = RccPeriphClkInitTypeDef {
+        periph_clock_selection: RccPeriphClkSelection::RccPeriphClkRtc,
+        rtc_clock_selection: RccRtcClkSource::RccRtcClkSourceLse,
+    };
 
 
     info!("exciting system clock config");
@@ -69,6 +70,9 @@ fn main() {
     .with_max_level(Level::TRACE)
     .finish();
 tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
+
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    hal_init();
 
     /* Configure the system clock */
     system_clock_config()
