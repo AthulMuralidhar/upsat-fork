@@ -2,6 +2,7 @@
 mod inc;
 mod stm32f4xx_hal;
 
+use inc::adcs_error_handler::AdcsErrorStatus;
 use volatile::Volatile;
 use tracing::{info,  Level};
 use tracing_subscriber::FmtSubscriber;
@@ -66,12 +67,22 @@ fn __hal_rcc_pwr_clk_enabled() {
 // CHECK: https://locka99.gitbooks.io/a-guide-to-porting-c-to-rust/content/features_of_rust/macros.html
 
 fn main() {
+    // LOGGER
     let subscriber = FmtSubscriber::builder()
     .with_max_level(Level::TRACE)
     .finish();
 tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
 
+
+    /* USER CODE BEGIN 1 */
+
+    let _obc_request_time: u32 = 0;
+
+    /* Reset error status */
+    let _error_status = AdcsErrorStatus::Ok;
+
     /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    // found at stm32f4xx_hal.c line 167
     hal_init();
 
     /* Configure the system clock */
