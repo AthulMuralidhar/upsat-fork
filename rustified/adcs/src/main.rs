@@ -58,7 +58,7 @@ fn system_clock_config() {
 
 
 fn __hal_rcc_pwr_clk_enabled() {
-    let tmpreg: Volatile<u32> = Volatile::new(0x00);
+    let _tmpreg: Volatile<u32> = Volatile::new(0x00);
     
 }
 
